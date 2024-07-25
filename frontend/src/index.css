@@ -1,0 +1,116 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
+
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css");
+:root {
+  font-family: "Poppins", sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+body {
+  margin: 0;
+  padding: 0;
+}
+
+main {
+  padding: 5px;
+}
+/* LINKS */
+.link {
+  text-decoration: none;
+  color: #4a4a4a;
+}
+
+.img-large {
+  max-width: 100%;
+}
+
+.img-thumbnail {
+  height: 80px;
+}
+
+.small-container {
+  max-width: 600px;
+}
+
+.name-date {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+}
+
+/* checkout steps */
+
+.checkout-steps {
+  display: flex;
+  justify-content: space-around;
+  margin: 20px 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.checkout-steps div {
+  flex: 1;
+  text-align: center;
+  padding: 10px;
+  border-bottom: 3px solid #ccc;
+  font-size: 1.25rem;
+}
+
+.checkout-steps div.active {
+  border-bottom: 3px solid #4a4a4a;
+  font-weight: bold;
+  color: #4a4a4a;
+}
+
+.checkout-steps div:not(:last-child) {
+  margin-right: 10px;
+}
+
+@media screen and (max-width: 425px) {
+  .checkout-steps div {
+    flex: 1;
+    text-align: center;
+    padding: 7px;
+    border-bottom: 3px solid #ccc;
+    font-size: 0.55rem;
+  }
+}
+
+/* PaymentMethodPage.tsx */
+.payment-method-btn {
+  background-color: #4a4a4a;
+  color: #fff;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+/* OrderPage.tsx */
+.summary-item-details-price {
+  display: flex;
+  justify-content: space-between;
+}
+
+.summary-item-details {
+  flex: 3;
+}
+
+@media screen and (max-width: 992px) {
+  .summary-item-details-price {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .order-id-h1 {
+    font-size: 22px;
+  }
+}

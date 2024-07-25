@@ -1,0 +1,133 @@
+.sign-up-page {
+  display: flex;
+  flex-direction: column;
+  height: 80vh;
+  justify-content: center;
+  align-items: center;
+}
+
+.sign-up-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 400px;
+  max-width: 100%;
+}
+
+.sign-up-title {
+  margin-left: 22px;
+  font-size: 30px;
+  font-weight: 600;
+  margin-bottom: 30px;
+  color: #111827;
+}
+
+.sign-up-group {
+  margin-bottom: 16px;
+}
+
+.sign-up-input {
+  width: 100%;
+  min-width: 275px;
+  padding: 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  font-size: 16px;
+  color: #111827;
+  background-color: #f9fafb;
+}
+
+.sign-up-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  background-color: #fff;
+}
+
+.sign-up-button-div {
+  width: 100%;
+  padding: 10px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  background-color: #1f2937;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.sign-up-button {
+  width: 100%;
+  padding: 10px;
+  background-color: #1f2937;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.sign-up-group-sign-in {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #6b7280;
+  margin-bottom: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sign-up-form-link {
+  /* color: #3b82f6; */
+  color: #3b82f6;
+  text-decoration: none;
+  margin-left: 2px;
+}
+
+.password-group {
+  position: relative;
+}
+
+.password-toggle {
+  position: absolute;
+  right: -7px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+@media screen and (max-width: 530px) {
+  .sign-up-input {
+    width: 95%;
+    min-width: 275px;
+    padding: 10px;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    font-size: 16px;
+    color: #111827;
+    background-color: #f9fafb;
+  }
+
+  .sign-up-button-div {
+    width: 95%;
+    padding: 10px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    background-color: #1f2937;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .sign-up-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #1f2937;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+}

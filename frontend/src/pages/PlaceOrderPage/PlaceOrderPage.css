@@ -1,0 +1,142 @@
+.order-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.order-item {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+  padding: 1rem 0;
+}
+
+.order-item-image img {
+  width: 150px;
+}
+
+.order-item-details {
+  flex-grow: 1;
+  padding: 0 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.order-item-quantity {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.order-item-price {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.order-item-remove {
+  padding: 0 1rem;
+}
+
+/* CHECKOUT */
+
+.order-summary {
+  border: 1px solid #ddd;
+  padding: 16px;
+  width: 500px;
+  transition: box-shadow 0.3s ease;
+}
+
+.order-summary-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0px;
+}
+
+.order-summary-label {
+  font-size: 14px;
+  color: #333;
+}
+
+.order-summary-value {
+  font-size: 14px;
+  color: #333;
+}
+
+.free {
+  color: green;
+}
+
+.order-summary-total {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+  font-weight: bold;
+}
+
+.order-summary-total-label {
+  font-size: 16px;
+  color: #333;
+}
+
+.order-summary-total-value {
+  font-size: 16px;
+  color: #333;
+}
+
+.order-summary-button {
+  width: 100%;
+  padding: 10px;
+  background-color: #4a4a4a;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  margin-top: 16px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 1024px) {
+  .order-summary-h3 {
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .order-item-image img {
+    width: 100px;
+  }
+  .order-summary-h3 {
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 545px) {
+  .order-item-image img {
+    width: 100px;
+  }
+  .order-summary-h3 {
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 374px) {
+  span {
+    font-size: small;
+  }
+
+  p {
+    font-size: small;
+  }
+
+  .link-order {
+    font-size: small;
+  }
+  .order-summary-h3 {
+    text-align: center;
+  }
+}

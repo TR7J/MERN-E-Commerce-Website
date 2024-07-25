@@ -1,0 +1,75 @@
+/* General table styling */
+.table-container {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 16px;
+  color: #333;
+}
+
+.table th {
+  background-color: #f4f4f4;
+  color: #333;
+  padding: 12px;
+  text-align: left;
+  border-bottom: 2px solid #ddd;
+}
+
+.table td {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+}
+
+.table tr:hover {
+  background-color: #f9f9f9;
+}
+
+.table button {
+  background-color: #4a4a4a;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  margin: 2px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.tablebutton:hover {
+  background-color: #6a6a6a;
+  transform: scale(1.05);
+}
+
+.table button:focus {
+  outline: none;
+}
+
+.table button.delete-button {
+  background-color: #dc3545;
+}
+
+.table button.delete-button:hover {
+  background-color: #c82333;
+}
+
+.td-date {
+  white-space: nowrap;
+}
+
+.td-actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.th-isadmin {
+  white-space: nowrap;
+}
+
+.td-any {
+  white-space: nowrap;
+}
