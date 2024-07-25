@@ -12,7 +12,7 @@ const app = (0, express_1.default)();
 app.get("/api/products", (req, res) => {
   res.json(data_1.sampleProducts);
 });
-const PORT = 5000;
+const PORT = 8000;
 // starting our server
 app.listen(PORT, () => {
   console.log(`server is listening on port ${PORT}`);
