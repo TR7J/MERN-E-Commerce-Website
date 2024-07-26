@@ -73,7 +73,10 @@ const Navbar = () => {
               className="modal-overlay"
               onClick={() => setModalIsOpen(false)}
             >
-              <div onClick={(e) => e.stopPropagation()}>
+              <div
+                onClick={(e) => e.stopPropagation()}
+                className="modal-content"
+              >
                 <button
                   className="close-button"
                   onClick={() => setModalIsOpen(false)}
