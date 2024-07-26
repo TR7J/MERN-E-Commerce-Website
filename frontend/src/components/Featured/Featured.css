@@ -1,0 +1,137 @@
+.featured {
+  background-color: #222;
+  color: #fff;
+  padding: 50px 0;
+}
+
+.featured-center {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+.featured-title {
+  margin: 0;
+  font-weight: normal;
+  font-size: 1.5rem;
+}
+
+@media screen and (min-width: 768px) {
+  .featured-title {
+    font-size: 3rem;
+  }
+}
+
+.featured-desc {
+  color: #aaa;
+  font-size: 0.8rem;
+}
+
+.featured-columns-wrapper {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+}
+
+.featured-columns-wrapper img {
+  max-width: 100%;
+  max-height: 200px;
+  display: block;
+  margin: 0 auto;
+}
+
+.featured-columns-wrapper div:nth-child(1) {
+  order: 2;
+}
+
+@media screen and (min-width: 768px) {
+  .featured-columns-wrapper {
+    grid-template-columns: 1.1fr 0.9fr;
+  }
+
+  .featured-columns-wrapper div:nth-child(1) {
+    order: 0;
+  }
+
+  .featured-columns-wrapper img {
+    max-width: 100%;
+  }
+}
+
+.featured-image {
+  display: flex;
+  align-items: center;
+}
+
+.featured-buttons-wrapper {
+  display: flex;
+  gap: 10px;
+  margin-top: 25px;
+}
+
+.button-link,
+.button {
+  text-decoration: none;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+}
+
+.button-link.outline.white {
+  background-color: transparent;
+  border: 1px solid #fff;
+}
+
+.button.white {
+  background-color: #fff;
+  color: #222;
+}
+
+.cart-icon::before {
+  content: "\f07a";
+  margin-right: 5px;
+}
+
+.cart-icon-featured {
+  font-size: small;
+}
+
+.cart-icon-featured-span {
+  margin-right: 5px;
+}
+
+@media screen and (max-width: 375px) {
+  .button-link.outline.white {
+    background-color: transparent;
+    border: 1px solid #fff;
+    font-size: smaller;
+  }
+
+  .button.white {
+    font-size: smaller;
+  }
+
+  .featured-title-desc-btns {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: c;
+  }
+}
+
+@media screen and (max-width: 430px) {
+  .featured-title-desc-btns {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .featured-desc {
+    font-size: 1rem;
+  }
+}

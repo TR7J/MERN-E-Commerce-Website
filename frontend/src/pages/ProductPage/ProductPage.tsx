@@ -2,7 +2,7 @@ import { Helmet } from "react-helmet-async";
 import { useGetProductDetailsBySlugQuery } from "../../hooks/productHooks";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import Loading from "../../components/Loading";
+import Loading from "../../components/Loading/Loading";
 import Rating from "../../components/Rating";
 import { useContext, useRef, useState } from "react";
 import { Store } from "../../context/Store";
@@ -67,7 +67,7 @@ const ProductPage = () => {
 
       window.scrollTo({
         behavior: "smooth",
-        top: reviewsRef.current!.offsetTop,
+        top: reviewsRef.current?.offsetTop || 0,
       });
     } catch (error) {
       toast.error(getError(error as ApiError));
@@ -164,7 +164,7 @@ const ProductPage = () => {
             </div>
           )}
         </div>
-        <div className="reviews">
+        <div className="reviews" ref={reviewsRef}>
           <h2>Reviews</h2>
           {product.reviews.length === 0 ? (
             <div className="empty-state">

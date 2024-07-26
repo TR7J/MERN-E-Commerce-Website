@@ -1,24 +1,16 @@
-import {
-  PayPalButtons,
-  PayPalButtonsComponentProps,
-  SCRIPT_LOADING_STATE,
-  usePayPalScriptReducer,
-} from "@paypal/react-paypal-js";
-import { /* useContext, */ useContext, useEffect } from "react";
+import { useContext } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import Loading from "../components/Loading";
+import Loading from "../components/Loading/Loading";
 import { format } from "date-fns";
 
 import {
   useGetOrderDetailsQuery,
-  useGetPaypalClientIdQuery,
   usePayOrderMutation,
   useDeliverOrderMutation,
 } from "../hooks/orderHooks";
 
-/* import { Store } from "../context/Store"; */
 import { ApiError } from "../types/ApiError";
 import { getError } from "../utils";
 import { Store } from "../context/Store";
@@ -37,8 +29,7 @@ export default function OrderPage() {
     refetch,
   } = useGetOrderDetailsQuery(orderId!);
 
-  const { mutateAsync: payOrder, isLoading: loadingPay } =
-    usePayOrderMutation();
+  const { mutateAsync: payOrder, status } = usePayOrderMutation();
   // Initialize the new deliver order mutation
   const { mutateAsync: deliverOrder } = useDeliverOrderMutation();
 
@@ -52,77 +43,21 @@ export default function OrderPage() {
       toast.error(getError(err as ApiError));
     }
   };
+
   const testPayHandler = async () => {
     await payOrder({ orderId: orderId! });
     refetch();
     toast.success("Order is paid");
   };
 
-  const [{ isPending, isRejected }, paypalDispatch] = usePayPalScriptReducer();
-
-  const { data: paypalConfig } = useGetPaypalClientIdQuery();
-
-  useEffect(() => {
-    if (paypalConfig && paypalConfig.clientId) {
-      const loadPaypalScript = async () => {
-        paypalDispatch({
-          type: "resetOptions",
-          value: {
-            "client-id": paypalConfig!.clientId,
-            currency: "KSH",
-          },
-        });
-        paypalDispatch({
-          type: "setLoadingStatus",
-          value: SCRIPT_LOADING_STATE.PENDING,
-        });
-      };
-      loadPaypalScript();
-    }
-  }, [paypalConfig]);
-
-  const paypalbuttonTransactionProps: PayPalButtonsComponentProps = {
-    style: { layout: "vertical" },
-    createOrder(data, actions) {
-      return actions.order
-        .create({
-          purchase_units: [
-            {
-              amount: {
-                value: order!.totalPrice.toString(),
-              },
-            },
-          ],
-        })
-        .then((orderID: string) => {
-          return orderID;
-        });
-    },
-    onApprove(data, actions) {
-      return actions.order!.capture().then(async (details) => {
-        try {
-          await payOrder({ orderId: orderId!, ...details });
-          refetch();
-          toast.success("Order is paid successfully");
-        } catch (err) {
-          toast.error(getError(err as ApiError));
-        }
-      });
-    },
-    onError: (err) => {
-      toast.error(getError(err as ApiError));
-    },
-  };
-
   return isLoading ? (
     <Loading />
   ) : error ? (
-    /* <div>{getError(error as ApiError)}</div> */
     <div>There was an error</div>
   ) : !order ? (
     <div>Order Not Found</div>
   ) : (
-    <div>
+    <div className="order-page">
       <Helmet>
         <title>Order {orderId}</title>
       </Helmet>
@@ -179,7 +114,7 @@ export default function OrderPage() {
                     <div className="order-item">
                       <div className="order-item-image">
                         <img
-                          src=/* {item.image} */ {`http://localhost:8000${item.image}`}
+                          src={`http://localhost:8000${item.image}`}
                           alt={item.name}
                           className="img-fluid rounded thumbnail"
                         ></img>{" "}
@@ -235,24 +170,13 @@ export default function OrderPage() {
               </div>
               {!order.isPaid && (
                 <div>
-                  {isPending ? (
-                    <Loading />
-                  ) : isRejected ? (
-                    <div>Error in connecting to PayPal</div>
-                  ) : (
-                    <div>
-                      <PayPalButtons
-                        {...paypalbuttonTransactionProps}
-                      ></PayPalButtons>
-                      <button
-                        onClick={testPayHandler}
-                        className="order-summary-button"
-                      >
-                        Purchase Now
-                      </button>
-                    </div>
-                  )}
-                  {loadingPay && <Loading />}
+                  <button
+                    onClick={testPayHandler}
+                    className="order-summary-button"
+                  >
+                    Purchase Now
+                  </button>
+                  {status === "pending" && <Loading />}
                 </div>
               )}
 

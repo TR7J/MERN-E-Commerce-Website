@@ -1,55 +1,45 @@
-import { useState, useEffect, useContext } from "react";
-import Loading from "../Loading";
-
-import { Product } from "../../types/Product";
+import { useContext, useEffect, useState } from "react";
 import apiClient from "../../apiClient";
-
 import { Store } from "../../context/Store";
-import RecommendedProductItem from "../SingleProduct/RecommendedProductItem";
+import { Product } from "../../types/Product";
 
-const Recommendation = () => {
-  /*     const { state } = useContext(Store);
-  const { userInfo } = state; */
+const Recommendations = () => {
+  const [products, setProducts] = useState<Product[]>([]);
   const { state } = useContext(Store);
   const { userInfo } = state;
-  const [recommendedProducts, setRecommendedProducts] = useState<Product[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchRecommendations = async () => {
       try {
-        const response = await apiClient.get<[]>(
-          `api/recommendations/${userInfo?._id}`
-        );
-        setRecommendedProducts(response.data);
-      } catch (err) {
-        setError("There was an error fetching recommendations");
-      } finally {
-        setIsLoading(false);
+        if (userInfo?._id) {
+          const response = await apiClient.get<Product[]>(
+            `api/recommendations/${userInfo._id}`
+          );
+          console.log("API Response Data:", response.data);
+          setProducts(response.data);
+        }
+      } catch (error) {
+        console.error("Error fetching recommendations", error);
       }
     };
 
     fetchRecommendations();
   }, [userInfo?._id]);
 
-  return isLoading ? (
-    <Loading />
-  ) : error ? (
-    <div>{error}</div>
-  ) : (
+  return (
     <div>
-      {/* <Helmet>
-        <title>Recommended Products</title>
-      </Helmet> */}
-      <h2>Recommended for You</h2>
-      <div className="product-list">
-        {recommendedProducts.map((product) => (
-          <RecommendedProductItem key={product._id} product={product} />
-        ))}
+      <h2>Recommended Products</h2>
+      <div>
+        {products.length > 0 ? (
+          products.map((product: Product) => (
+            <div key={product._id}>{product.name}</div>
+          ))
+        ) : (
+          <p>Browse more to get Recommended Products.</p>
+        )}
       </div>
     </div>
   );
 };
 
-export default Recommendation;
+export default Recommendations;

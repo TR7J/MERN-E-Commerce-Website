@@ -1,8 +1,8 @@
 import bcrypt from "bcryptjs";
-import { Product } from "./types/ProductType";
+import { ProductType } from "./types/ProductType";
 import { User } from "./types/User";
 
-export const sampleProducts: Product[] = [
+export const sampleProducts: ProductType[] = [
   {
     name: "Nike Slim shirt",
     slug: "nike-slim-shirt",

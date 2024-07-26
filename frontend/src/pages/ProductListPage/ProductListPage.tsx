@@ -5,7 +5,7 @@ import { Store } from "../../context/Store";
 import { getError } from "../../utils";
 import { Product } from "../../types/Product"; // Import your Product type if you have one
 import { ApiError } from "../../types/ApiError";
-import Loading from "../../components/Loading";
+import Loading from "../../components/Loading/Loading";
 import apiClient from "../../apiClient";
 import "./ProductListPage.css";
 

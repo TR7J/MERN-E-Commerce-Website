@@ -130,4 +130,30 @@
     font-size: 16px;
     cursor: pointer;
   }
+
+  .password-toggle {
+    position: absolute;
+    right: -0.5px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
+}
+
+@media screen and (max-width: 351px) {
+  .sign-up-title {
+    margin-left: 0px;
+    font-size: 27px;
+    font-weight: 600;
+    margin-bottom: 30px;
+    color: #111827;
+    text-align: center;
+  }
+}
+
+@media screen and (min-width: 352px) and (max-width: 600px) {
+  .sign-up-title {
+    margin-right: 17px;
+    text-align: center;
+  }
 }

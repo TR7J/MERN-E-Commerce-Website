@@ -1,14 +1,12 @@
 import { useContext, useEffect, useState } from "react";
-
 import { Helmet } from "react-helmet-async";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-
 import { useSigninMutation } from "../../hooks/userHooks";
 import { Store } from "../../context/Store";
 import { getError } from "../../utils";
 import { ApiError } from "../../types/ApiError";
-import Loading from "../../components/Loading";
+import Loading from "../../components/Loading/Loading";
 import "../SignupPage/SignupPage.css";
 
 export default function SigninPage() {
@@ -24,7 +22,7 @@ export default function SigninPage() {
   const { state, dispatch } = useContext(Store);
   const { userInfo } = state;
 
-  const { mutateAsync: signin, isLoading } = useSigninMutation();
+  const { mutateAsync: signin, status } = useSigninMutation();
 
   const submitHandler = async (e: React.SyntheticEvent) => {
     e.preventDefault();
@@ -46,6 +44,7 @@ export default function SigninPage() {
       navigate(redirect);
     }
   }, [navigate, redirect, userInfo]);
+
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -60,7 +59,6 @@ export default function SigninPage() {
 
         <form onSubmit={submitHandler} className="sign-in-form">
           <div className="sign-up-group">
-            {/* <label>Email</label> */}
             <input
               type="email"
               required
@@ -70,7 +68,6 @@ export default function SigninPage() {
             />
           </div>
           <div className="sign-up-group password-group">
-            {/* <label>Password</label> */}
             <input
               type={!showPassword ? "text" : "password"}
               required
@@ -89,13 +86,13 @@ export default function SigninPage() {
           </div>
           <div className="sign-up-button-div">
             <button
-              disabled={isLoading}
+              disabled={status === "pending"}
               type="submit"
               className="sign-up-button"
             >
               Sign In
             </button>
-            {isLoading && <Loading />}
+            {status === "pending" && <Loading />}
           </div>
           <div className="sign-up-group-sign-in">
             Don't have an account?{" "}

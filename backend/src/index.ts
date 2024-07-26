@@ -8,7 +8,6 @@ import { userRouter } from "./routes/userRouter";
 import { orderRouter } from "./routes/orderRouter";
 import { keyRouter } from "./routes/keyRouter";
 import uploadRouter from "./routes/uploadRouter";
-import recommendationRouter from "./routes/recommendationRouter";
 
 // fetching env variables
 dotenv.config();
@@ -41,13 +40,14 @@ app.use("/api/products", productRouter);
 app.use("/api/users", userRouter);
 app.use("/api/orders", orderRouter);
 app.use("/api/upload", uploadRouter);
-app.use("/api/recommendations", recommendationRouter);
 app.use("/api/seed", seedRouter);
 app.use("/api/key", keyRouter);
 
 const PORT = 8000;
 
 // starting our server
-app.listen(PORT, () => {
-  console.log(`server is listening on port ${PORT}`);
+const server = app.listen(PORT, () => {
+  console.log(`Server is listening on port ${PORT}`);
 });
+
+export { app, server };

@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useReducer, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import Loading from "../components/Loading"; // Updated import
+import Loading from "../components/Loading/Loading"; // Updated import
 import { Store } from "../context/Store";
 import { getError } from "../utils";
 import { ApiError } from "../types/ApiError";

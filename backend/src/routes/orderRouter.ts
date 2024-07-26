@@ -10,7 +10,6 @@ import {
 } from "../controllers/orderController";
 import { AuthMiddleware } from "../middleware/AuthMiddleware";
 import { AdminMiddleware } from "../middleware/AdminMiddleware";
-import { getOrderSummary } from "../controllers/orderController";
 
 const orderRouter = express.Router();
 
@@ -21,6 +20,5 @@ orderRouter.post("/", AuthMiddleware, createOrder);
 orderRouter.put("/:id/pay", AuthMiddleware, updateOrderToPaid);
 orderRouter.put("/:id/deliver", AuthMiddleware, AdminMiddleware, deliverOrder);
 orderRouter.delete("/:id", AuthMiddleware, AdminMiddleware, deleteOrder);
-orderRouter.get("/summary", AuthMiddleware, AdminMiddleware, getOrderSummary);
 
 export { orderRouter };

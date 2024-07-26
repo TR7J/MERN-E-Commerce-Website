@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useReducer } from "react";
 import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import LoadingBox from "../components/Loading";
+import LoadingBox from "../components/Loading/Loading";
 import { Store } from "../context/Store";
 import { getError } from "../utils";
 import { User } from "../types/User";

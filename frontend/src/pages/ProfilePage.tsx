@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { toast } from "react-toastify";
-import Loading from "../components/Loading";
+import Loading from "../components/Loading/Loading";
 import { useUpdateProfileMutation } from "../hooks/userHooks";
 import { Store } from "../context/Store";
 import { ApiError } from "../types/ApiError";
@@ -15,7 +15,7 @@ export default function ProfilePage() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const { mutateAsync: updateProfile, isLoading } = useUpdateProfileMutation();
+  const { mutateAsync: updateProfile, status } = useUpdateProfileMutation();
 
   const submitHandler = async (e: React.SyntheticEvent) => {
     e.preventDefault();
@@ -84,10 +84,14 @@ export default function ProfilePage() {
           />
         </div>
         <div className="sign-up-button-div">
-          <button disabled={isLoading} type="submit" className="sign-up-button">
+          <button
+            disabled={status === "pending"}
+            type="submit"
+            className="sign-up-button"
+          >
             Update
           </button>
-          {isLoading && <Loading />}
+          {status === "pending" && <Loading />}
         </div>
       </form>
     </div>

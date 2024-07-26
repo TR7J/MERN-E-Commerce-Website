@@ -22,7 +22,6 @@ import PaymentMethodPage from "./pages/PaymentMethodPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import PlaceOrderPage from "./pages/PlaceOrderPage/PlaceOrderPage";
 import OrderPage from "./pages/OrderPage";
-import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import OrderHistoryPage from "./pages/OrderHistoryPage";
 import ProfilePage from "./pages/ProfilePage";
 import SearchPage from "./pages/SearchPage/SearchPage";
@@ -43,21 +42,15 @@ const router = createBrowserRouter(
       <Route path="signin" element={<SigninPage />} />
       <Route path="signup" element={<SignupPage />} />
       <Route path="search" element={<SearchPage />} />
-      <Route path="" element={<ProtectedRoute />}>
-        <Route path="admin/dashboard" element={<AdminDashBoard />} />
-        <Route path="admin/orders" element={<OrderListPage />} />
-        <Route path="admin/users" element={<UserListPage />} />
-        <Route path="admin/products" element={<ProductListPage />} />
-        <Route path="admin/product/:id" element={<ProductEditPage />} />
-        <Route path="admin/user/:id" element={<UserEditPage />} />
+      <Route element={<ProtectedRoute />}>
         <Route path="shipping" element={<ShippingAddressPage />} />
         <Route path="payment" element={<PaymentMethodPage />} />
         <Route path="placeorder" element={<PlaceOrderPage />} />
-        <Route path="/order/:id" element={<OrderPage />} />
-        <Route path="/orderhistory" element={<OrderHistoryPage />} />
-        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="order/:id" element={<OrderPage />} />
+        <Route path="orderhistory" element={<OrderHistoryPage />} />
+        <Route path="profile" element={<ProfilePage />} />
       </Route>
-      <Route path="" element={<AdminRoute />}>
+      <Route element={<AdminRoute />}>
         <Route path="admin/dashboard" element={<AdminDashBoard />} />
         <Route path="admin/orders" element={<OrderListPage />} />
         <Route path="admin/users" element={<UserListPage />} />
@@ -74,14 +67,12 @@ const queryClient = new QueryClient();
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <StoreProvider>
-      <PayPalScriptProvider options={{ clientId: "sb" }} deferLoading={true}>
-        <HelmetProvider>
-          <QueryClientProvider client={queryClient}>
-            <RouterProvider router={router} />
-            <ReactQueryDevtools initialIsOpen={false} />
-          </QueryClientProvider>
-        </HelmetProvider>
-      </PayPalScriptProvider>
+      <HelmetProvider>
+        <QueryClientProvider client={queryClient}>
+          <RouterProvider router={router} />
+          <ReactQueryDevtools initialIsOpen={false} />
+        </QueryClientProvider>
+      </HelmetProvider>
     </StoreProvider>
   </React.StrictMode>
 );

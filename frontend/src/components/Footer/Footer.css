@@ -68,7 +68,7 @@
   flex-direction: column;
 }
 
-@media screen and (max-width: 430px) {
+@media screen and (max-width: 431px) {
   .footer {
     display: flex;
     flex-direction: column;
@@ -96,7 +96,7 @@
   }
 }
 
-@media screen and (min-width: 430px) and (max-width: 599px) {
+@media screen and (min-width: 450px) and (max-width: 599px) {
   .footer-left-center-right {
     display: flex;
     flex-direction: column;

@@ -15,7 +15,7 @@ function App() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
   return (
-    <div>
+    <div className="app">
       <ToastContainer position="bottom-center" limit={2} />
       <header>
         <Navbar />

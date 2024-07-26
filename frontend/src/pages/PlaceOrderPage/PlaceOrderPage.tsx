@@ -4,7 +4,7 @@ import { Helmet } from "react-helmet-async";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import CheckoutSteps from "../../components/CheckoutSteps";
-import Loading from "../../components/Loading";
+import Loading from "../../components/Loading/Loading";
 import { useCreateOrderMutation } from "../../hooks/orderHooks";
 import { Store } from "../../context/Store";
 import { ApiError } from "../../types/ApiError";
@@ -26,7 +26,7 @@ export default function PlaceOrderPage() {
   cart.taxPrice = round2(0.15 * cart.itemsPrice);
   cart.totalPrice = cart.itemsPrice + cart.shippingPrice + cart.taxPrice;
 
-  const { mutateAsync: createOrder, isLoading } = useCreateOrderMutation();
+  const { mutateAsync: createOrder, status } = useCreateOrderMutation();
 
   const placeOrderHandler = async () => {
     try {
@@ -161,11 +161,11 @@ export default function PlaceOrderPage() {
                   type="button"
                   className="order-summary-button"
                   onClick={placeOrderHandler}
-                  disabled={cart.cartItems.length === 0 || isLoading}
+                  disabled={cart.cartItems.length === 0 || status === "pending"}
                 >
                   Place Order
                 </button>
-                {isLoading && <Loading />}
+                {status === "pending" && <Loading />}
               </div>
             </div>
           </div>

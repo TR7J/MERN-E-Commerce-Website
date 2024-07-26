@@ -103,66 +103,6 @@ export const updateOrderToPaid = async (
   }
 };
 
-// get orders summery - admin
-export const getOrderSummary = async (
-  req: Request,
-  res: Response
-): Promise<void> => {
-  try {
-    // Aggregate order summary
-    const orders = await Order.aggregate([
-      {
-        $group: {
-          _id: null,
-          numOrders: { $sum: 1 },
-          totalSales: { $sum: "$totalPrice" },
-        },
-      },
-    ]);
-
-    // Aggregate user count
-    const users = await User.aggregate([
-      {
-        $group: {
-          _id: null,
-          numUsers: { $sum: 1 },
-        },
-      },
-    ]);
-
-    // Aggregate daily orders
-    const dailyOrders = await Order.aggregate([
-      {
-        $group: {
-          _id: { $dateToString: { format: "%Y-%m-%d", date: "$createdAt" } },
-          orders: { $sum: 1 },
-          sales: { $sum: "$totalPrice" },
-        },
-      },
-      { $sort: { _id: 1 } },
-    ]);
-
-    // Aggregate product categories
-    const productCategories = await Product.aggregate([
-      {
-        $group: {
-          _id: "$category",
-          count: { $sum: 1 },
-        },
-      },
-    ]);
-
-    // Send response with aggregated data
-    res.send({ users, orders, dailyOrders, productCategories });
-  } catch (error) {
-    console.error("Error in getting order summary:", error);
-    res.status(500).send({
-      message: "Error in getting order summary",
-      error: (error as Error).message,
-    });
-  }
-};
-
 export const deleteOrder = async (
   req: Request,
   res: Response

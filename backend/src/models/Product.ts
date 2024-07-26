@@ -8,7 +8,8 @@ interface IReview {
 }
 
 // Define the interface for Product
-interface IProduct extends Document {
+export interface IProduct extends Document {
+  _id: string;
   name: string;
   slug: string;
   image: string;

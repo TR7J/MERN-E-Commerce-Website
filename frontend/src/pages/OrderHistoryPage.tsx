@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
-import Loading from "../components/Loading";
+import Loading from "../components/Loading/Loading";
 
 import { useGetOrderHistoryQuery } from "../hooks/orderHooks";
 

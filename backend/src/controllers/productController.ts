@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
-import Product from "../models/Product";
+import Product, { IProduct } from "../models/Product";
+import { recordInteraction } from "./recordUserActivity";
 
 // admin abilities
 export const getAdminProducts = async (req: Request, res: Response) => {
@@ -42,12 +43,12 @@ export const createProduct = async (req: Request, res: Response) => {
       name: "sample name " + Date.now(),
       slug: "sample-name-" + Date.now(),
       image: "/images/p1.jpg",
-      price: 0,
+      price: 2000,
       category: "sample category",
       brand: "sample brand",
       countInStock: 0,
       rating: 0,
-      numberOfReviews: 0, // Ensure the property name matches your schema
+      numberOfReviews: 0,
       description: "sample description",
     });
     const product = await newProduct.save();
@@ -130,8 +131,15 @@ export const getProductBySlug = async (
   next: NextFunction
 ) => {
   try {
+    const { userId } = req.params;
     const product = await Product.findOne({ slug: req.params.slug });
     if (product) {
+      // Record the view interaction
+      await recordInteraction(
+        userId,
+        product?._id.toString() as string,
+        "view"
+      );
       res.json(product);
     } else {
       res.status(404).json({ message: "Product Not Found" });
@@ -180,7 +188,14 @@ export const searchProducts = async (req: Request, res: Response) => {
 //  Add a review to a product
 export const addReviewController = async (req: Request, res: Response) => {
   try {
+    const userId = req.user._id;
     const productId = req.params.id;
+    // Record the rating interaction
+    await recordInteraction(userId, productId, "rating");
+
+    // Record the review interaction
+    await recordInteraction(userId, productId, "review");
+
     const product = await Product.findById(productId);
     if (product) {
       if (product.reviews.find((x) => x.name === req.user.name)) {

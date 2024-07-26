@@ -1,32 +1,61 @@
-import { Request, Response } from "express";
 import Product from "../models/Product";
-import { Order } from "../models/Order";
+import User, { IUser } from "../models/User";
+import { Types } from "mongoose";
 
-export const getRecommendations = async (req: Request, res: Response) => {
-  try {
-    // Fetch the user's cart items
-    const order = await Order.findOne({
-      user: req.params.userId,
-      isPaid: false,
-    }).populate("orderItems.product");
-
-    if (!order) {
-      return res.status(404).json({ message: "No active cart found for user" });
-    }
-
-    const cartItems = order.orderItems;
-
-    // Extract categories from cart items
-    const categories = cartItems.map((item) => item.product?.category);
-
-    // Get products from similar categories
-    const recommendedProducts = await Product.find({
-      category: { $in: categories },
-      _id: { $nin: cartItems.map((item) => item.product?._id) }, // Exclude items already in cart
-    }).limit(10); // Limit the number of recommendations
-
-    res.json(recommendedProducts);
-  } catch (error) {
-    res.status(500).json({ message: error });
-  }
+const isValidObjectId = (id: string) => {
+  return Types.ObjectId.isValid(id) && new Types.ObjectId(id).toString() === id;
 };
+
+const getRecommendations = async (userId: string) => {
+  const user = await User.findById(userId).populate("interactions.productId");
+
+  if (!user) {
+    throw new Error("User not found");
+  }
+
+  // Collect products interacted by the user
+  const interactedProducts = user.interactions
+    .map((interaction) => interaction.productId.toString())
+    .filter(isValidObjectId); // Ensure only valid ObjectId strings
+
+  // Find other users with similar interactions
+  const similarUsers = await User.find({
+    "interactions.productId": {
+      $in: interactedProducts.map((id) => new Types.ObjectId(id)),
+    },
+    _id: { $ne: userId },
+  }).populate("interactions.productId");
+
+  // Aggregate recommended products from similar users
+  const recommendedProducts: Record<string, number> = {};
+  similarUsers.forEach((similarUser: IUser) => {
+    similarUser.interactions.forEach((interaction) => {
+      const productIdStr = interaction.productId.toString();
+      if (
+        isValidObjectId(productIdStr) &&
+        !interactedProducts.includes(productIdStr)
+      ) {
+        recommendedProducts[productIdStr] =
+          (recommendedProducts[productIdStr] || 0) + 1;
+      }
+    });
+  });
+
+  // Sort recommended products by frequency
+  const sortedRecommendations = Object.keys(recommendedProducts).sort(
+    (a, b) => recommendedProducts[b] - recommendedProducts[a]
+  );
+
+  // Fetch product details
+  const products = await Product.find({
+    _id: {
+      $in: sortedRecommendations
+        .filter(isValidObjectId)
+        .map((id) => new Types.ObjectId(id)),
+    },
+  });
+
+  return products;
+};
+
+export { getRecommendations };

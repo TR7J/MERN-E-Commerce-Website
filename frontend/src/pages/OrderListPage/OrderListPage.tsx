@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useReducer } from "react";
 import { toast } from "react-toastify";
 import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
-import Loading from "../../components/Loading";
+import Loading from "../../components/Loading/Loading";
 import { Store } from "../../context/Store";
 import { getError } from "../../utils";
 import { ApiError } from "../../types/ApiError";

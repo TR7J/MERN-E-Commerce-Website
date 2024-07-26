@@ -1,9 +1,10 @@
 import { useGetProductsQuery } from "../hooks/productHooks";
-import Loading from "../components/Loading";
+import Loading from "../components/Loading/Loading";
 import ProductItem from "../components/SingleProduct/ProductItem";
 import { Helmet } from "react-helmet-async";
 import "../components/SingleProduct/ProductItem.css";
 import Recommendation from "../components/Recommendation/Recommendation";
+import Featured from "../components/Featured/Featured";
 
 const Homepage = () => {
   const { data: products, isLoading, error } = useGetProductsQuery();
@@ -17,7 +18,8 @@ const Homepage = () => {
       <Helmet>
         <title>Mot Du Jour</title>
       </Helmet>
-      <h2>View Our Recent Products</h2>
+      <Featured />
+      <h2 className="recent-products">View Our Recent Products</h2>
       <div className="spares-list">
         {products!.map((product) => (
           <div key={product.slug}>

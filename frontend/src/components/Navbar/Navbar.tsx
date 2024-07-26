@@ -6,7 +6,7 @@ import { Store } from "../../context/Store";
 import { Link, useNavigate } from "react-router-dom";
 import SearchBox from "../SearchBox";
 import { useGetCategoriesQuery } from "../../hooks/productHooks";
-import Loading from "../Loading";
+import Loading from "../Loading/Loading";
 
 const Navbar = () => {
   const { state, dispatch } = useContext(Store);
